@@ -101,5 +101,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias schlaf='systemctl suspend'
 alias byebye='shutdown -h now'
+alias als='ls -la'
+function gitc() {
+  git clone git@github.com:$1
+}
 
 PROMPT="%K{128} %k%B%K{128}%F{white}%n%f%k%b%K{128} %k%K{23} %k%K{23}%~%k%K{23} >%k "
