@@ -9,20 +9,24 @@
 
 import Graphics.X11.ExtraTypes.XF86
 import XMonad
-import XMonad.Util.EZConfig
 import XMonad.Hooks.DynamicLog
-import XMonad.Layout.Fullscreen
-import XMonad.Util.SpawnOnce
-import XMonad.Util.Run
-import XMonad.Layout.Spacing
-import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
-import XMonad.Hooks.ManageDocks
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.Spacing
+import XMonad.Util.ClickableWorkspaces
+import XMonad.Util.EZConfig
+import XMonad.Util.Loggers
+import XMonad.Util.Run
+import XMonad.Util.SpawnOnce
+
 import Control.Monad
 import Data.Monoid
 import System.Exit
 
+import qualified XMonad.Util.Hacks as Hacks
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -243,34 +247,11 @@ myManageHook = composeAll
     , resource  =? "kdesktop"       --> doIgnore ]
 
 ------------------------------------------------------------------------
--- Event handling
-
--- * EwmhDesktops users should change this to ewmhDesktopsEventHook
---
--- Defines a custom handler function for X Events. The function should
--- return (All True) if the default handler is to be run afterwards. To
--- combine event hooks use mappend or mconcat from Data.Monoid.
---
-myEventHook = mempty
-
-------------------------------------------------------------------------
 -- Status bars and logging
 
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook procList = dynamicLogWithPP $ xmobarPP {
-  ppOutput =  hPutStrLn procList ,
-  -- workspace highlighting
-  ppCurrent = xmobarColor "#ffffff" "#df00df" . wrap " " " " ,
-  ppVisible = xmobarColor "#008080" "" ,
-  ppHidden =  xmobarColor "#2F4F4F" "" ,
-  ppUrgent =  xmobarColor "#FF0000" "" . wrap "*" "",
-  -- other stuff
-  ppTitle =   \t -> xmobarColor "#00dede" "" $ shorten 45 t,
-  ppSep =     "<fc=#666666>    </fc>" ,
-  ppOrder =   \(ws:l:t:ex) -> [ws,t]
-}
 
 
 ------------------------------------------------------------------------
@@ -284,6 +265,9 @@ myLogHook procList = dynamicLogWithPP $ xmobarPP {
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
   spawnOnce "picom &"
+  spawnOnce "trayer --edge top --align right --SetDockType true \
+          \--SetPartialStrut true --expand true --width 3 \
+          \--transparent true --tint 0x101010 --height 18"
 
 -- moreKeys
 
@@ -299,22 +283,29 @@ moreKeys = [
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
+myXmobarPP = def {
+  -- workspace highlighting
+  ppCurrent = xmobarColor "#ffffff" "#df00df" . wrap " " " " ,
+  ppVisible = xmobarColor "#008080" "" ,
+  ppHidden =  xmobarColor "#2F4F4F" "" ,
+  ppUrgent =  xmobarColor "#FF0000" "" . wrap "*" "",
+  -- other stuff
+  ppTitleSanitize   = xmobarStrip ,
+  ppTitle =   \t -> xmobarColor "#00dede" "" $ shorten 45 t ,
+  ppSep =     "<fc=#666666>    </fc>" ,
+  ppOrder =   \(ws:l:t:ex) -> [ws,t] -- ,
+  -- ppExtras          = [logTitles formatFocused formatUnfocused]
+}
+  -- where
+  --   formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+  --   formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-  xmonad $ fullscreenSupport $ docks $ myConfig xmproc `additionalKeys` moreKeys
-
--- Xmobar stuff
-{-xmobarConfig = def {
-
-}-}
-
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-myConfig procList = def {
+  xmonad
+  . ewmhFullscreen
+  . ewmh
+  . withEasySB (statusBarProp "xmobar ~/.config/xmobar/xmobarrc" (pure myXmobarPP)) toggleStrutsKey 
+  $ def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -330,12 +321,15 @@ myConfig procList = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
+        handleEventHook = handleEventHook def
+                 <> Hacks.trayerPaddingXmobarEventHook,
         layoutHook         = myLayout,
         manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook procList,
         startupHook        = myStartupHook
-    }
+    } `additionalKeys` moreKeys
+    where 
+      toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+      toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String

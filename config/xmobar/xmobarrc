@@ -9,11 +9,6 @@ Config {
    , border =          BottomB
    , borderColor =     "#646464"
 
-   -- layout
-   , sepChar =  "%"   -- delineator between plugin names and straight text
-   , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %StdinReader% }{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% "
-
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
    , hideOnStart =      False   -- start with window unmapped (hidden)
@@ -100,8 +95,14 @@ Config {
         --                         , "-c", "#fb4934"
         --                         ] 1
         , Run Com            "zsh" ["/home/acmota2/.config/xmobar/sound.sh", "\xf057e"] "bettervol" 1
-        , Run StdinReader
+        , Run XPropertyLog "_XMONAD_TRAYPAD"
+        , Run XMonadLog
         
         ]
+
+   -- layout
+   , sepChar =  "%"   -- delineator between plugin names and straight text
+   , alignSep = "}{"  -- separator between left-right alignment
+   , template = " %XMonadLog% }{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
    }
 
