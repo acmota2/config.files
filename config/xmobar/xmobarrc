@@ -1,5 +1,4 @@
 Config { 
-
    -- appearance
      font =            "DejaVu Sans Mono Bold 12"
    , additionalFonts = ["FontAwesome 12, Nerd Fonts 12", "DejaVu Sans Mono Bold 14"]
@@ -13,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %StdinReader% }{ %dynnetwork% | %cpu% | %multicoretemp% | %memory% | %default:Master% | %date% [ %kbd% ] "
+   , template = " %StdinReader% }{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -44,35 +43,26 @@ Config {
                              ] 36000
 
         -- network activity monitor (dynamic interface resolution)
-        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s <rx>kB/s"
-                             , "--Low"      , "1000"       -- units: B/s
-                             , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+        , Run DynNetwork     [ "--template" , "<fc=#00dfdf><fn=1>\xf0aa</fn></fc> <tx>kB/s <fc=#df00df><fn=1>\xf0ab</fn></fc> <rx>kB/s"
                              ] 10
 
         -- ,	Run Network "enp0s31f6" ["-L","0","-H","32","--normal","green","--high","red"] 10
         -- ,	Run Network "wlp4s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
 
         -- cpu activity monitor
-        , Run Cpu            [ "--template" , "<fn=2>\xf4bc</fn> <total>%"
-                             , "--Low"      , "70"
+        , Run Cpu            [ "--template" , "<fc=#ffd700><fn=2>\xf4bc</fn> <total>%</fc>"
                              , "--High"     , "85"
-                             , "--low"      , "darkgreen"
                              , "--high"     , "darkred"
                              ] 10
         -- cpu core temperature monitor
-        , Run MultiCoreTemp  ["-t", "<fn=1>\xf2c8</fn> <avg>°C"
+        , Run MultiCoreTemp  [-- "-t", "<fc=#00ffff><fn=1>\xf2c8</fn> <avg>°C</fc>"
+                               "-t", "<fc=#df00df><avg>°C</fc>"
                              , "-hwmonitor-path"
                              , "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon2"
                              ] 50
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"<fn=2>\xf035b</fn> <usedratio>%"
-                             , "--Low"      , "20"        -- units: %
+        , Run Memory         [ "--template" ,"<fc=#00dfdf><fn=2>\xf035b</fn> <usedratio>%</fc>"
                              , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 20
 
@@ -94,22 +84,24 @@ Config {
                              ] 50
 
         -- time and date indicator 
-        , Run Date           "<fc=#ABABAB>%Y/%b/%d - %a %H:%M</fc>" "date" 10
+        , Run Date           "<fc=#ABABAB>%Y-<fc=#dF00dF>%b</fc>-<fc=#dF00dF>%d</fc> • <fc=#dF00dF>%a</fc> %H:%M</fc>" "date" 10
 
         -- keyboard layout indicator
         , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
                              , ("us"         , "<fc=#8B0000>US</fc>")
-                             , ("pt"         , "<fc=#00FFFF>PT</fc>")
+                             , ("pt"         , "<fc=#00FFFF>pt</fc>")
+                             , ("us(intl)"   , "<fc=#00FFFF>us-int</fc>")
                              ]
         
         , Run Com            "hostname" ["-t", "<fc=#ffffff,#BA55D3><fn=3> hostname </fn></fc><fc=white,#20B2AA> > </fc> "] "prompt" 36000
         
-        , Run Volume "default" "Master" [ "-t", "<fn=1>\xf057e</fn> <volume>%<status>"
-                                , "--", "-O", "", "-o", " (mute)"
-                                , "-c", "#fb4934"
-                                ] 1
-        
+        -- , Run Volume         "default" "Master" [ "-t", "<fn=1>\xf057e</fn> <volume>%<status>"
+        --                         , "--", "-O", "", "-o", " (mute)"
+        --                         , "-c", "#fb4934"
+        --                         ] 1
+        , Run Com            "zsh" ["/home/acmota2/.config/xmobar/sound.sh", "\xf057e"] "bettervol" 1
         , Run StdinReader
         
         ]
    }
+

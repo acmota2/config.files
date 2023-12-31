@@ -262,12 +262,12 @@ myEventHook = mempty
 myLogHook procList = dynamicLogWithPP $ xmobarPP {
   ppOutput =  hPutStrLn procList ,
   -- workspace highlighting
-  ppCurrent = xmobarColor "#FFFFFF" "#FF00FF" . wrap " " " " ,
+  ppCurrent = xmobarColor "#ffffff" "#df00df" . wrap " " " " ,
   ppVisible = xmobarColor "#008080" "" ,
   ppHidden =  xmobarColor "#2F4F4F" "" ,
   ppUrgent =  xmobarColor "#FF0000" "" . wrap "*" "",
   -- other stuff
-  ppTitle =   \t -> xmobarColor "#00FFFF" "" $ shorten 45 t,
+  ppTitle =   \t -> xmobarColor "#00dede" "" $ shorten 45 t,
   ppSep =     "<fc=#666666>    </fc>" ,
   ppOrder =   \(ws:l:t:ex) -> [ws,t]
 }
