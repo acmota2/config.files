@@ -1,6 +1,9 @@
-xrandr --output DP-0 --mode 2560x1440 --rate 144
-picom &
-feh --bg-center ~/Pictures/Imagens\ de\ Mim\/galáxia\ de\ andrémota\.png
+#!/bin/sh
+
 flameshot &
-setxkbmap -layout us -variant intl
-exec i3
+dunst &
+# feh --bg-center ~/Images/galaxia\ de\ andremota.png
+setxkbmap -layout pt
+# exec i3
+xsetroot -cursor_name left_ptr
+exec xmonad
