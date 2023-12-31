@@ -38,6 +38,7 @@ Config {
                              ] 36000
 
         -- network activity monitor (dynamic interface resolution)
+        , Run Wireless "wlan0" [ "-t", "<essid>" ] 10
         , Run DynNetwork     [ "--template" , "<fc=#00dfdf><fn=1>\xf0aa</fn></fc> <tx>kB/s <fc=#df00df><fn=1>\xf0ab</fn></fc> <rx>kB/s"
                              ] 10
 
@@ -88,21 +89,23 @@ Config {
                              , ("us(intl)"   , "<fc=#00FFFF>us-int</fc>")
                              ]
         
-        , Run Com            "hostname" ["-t", "<fc=#ffffff,#BA55D3><fn=3> hostname </fn></fc><fc=white,#20B2AA> > </fc> "] "prompt" 36000
+        , Run Com            "hostname" [] "" 36000
+        , Run Com            "zsh" ["/home/acmota2/.config/xmobar/wifi.sh"] "wifi" 36000
         
         -- , Run Volume         "default" "Master" [ "-t", "<fn=1>\xf057e</fn> <volume>%<status>"
         --                         , "--", "-O", "", "-o", " (mute)"
         --                         , "-c", "#fb4934"
         --                         ] 1
         , Run Com            "zsh" ["/home/acmota2/.config/xmobar/sound.sh", "\xf057e"] "bettervol" 1
-        , Run XPropertyLog "_XMONAD_TRAYPAD"
-        , Run XMonadLog
+        , Run Com            "zsh" ["/home/acmota2/.config/xmobar/connection.sh", "enp42s0", "\xf0202", "\xf091f", "\xf0922", "\xf0925", "\xf0928"] "connection" 100
+        , Run XPropertyLog   "_XMONAD_TRAYPAD"
+        , Run UnsafeXMonadLog
         
         ]
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %XMonadLog% }{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
+   , template = " %UnsafeXMonadLog% }<fc=#df00df>%hostname%</fc> <fc=#00dfdf>%connection%</fc>{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
    }
 

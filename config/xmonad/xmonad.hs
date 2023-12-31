@@ -1,12 +1,3 @@
---
--- xmonad example config file.
---
--- A template showing all available configuration hooks,
--- and how to override the defaults in your own xmonad.hs conf file.
---
--- Normally, you'd only override those defaults you care about.
---
-
 import Graphics.X11.ExtraTypes.XF86
 import XMonad
 import XMonad.Hooks.DynamicLog
@@ -30,40 +21,13 @@ import qualified XMonad.Util.Hacks as Hacks
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
---
-myTerminal      = "alacritty"
-
--- Whether focus follows the mouse pointer.
-myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
-
--- Whether clicking on a window to focus also passes the click to the window
-myClickJustFocuses :: Bool
-myClickJustFocuses = False
-
--- Width of the window border in pixels.
---
-myBorderWidth   = 1
-
--- modMask lets you specify which modkey you want to use. The default
--- is mod1Mask ("left alt").  You may also consider using mod3Mask
--- ("right alt"), which does not conflict with emacs keybindings. The
--- "windows key" is usually mod4Mask.
---
-myModMask       = mod4Mask
-
--- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
-myWorkspaces = ["dev", "web", "misc" ] ++ map show [4..9]
---
--- myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+-- Workspaces
+myNamedWorkspaces = ["\xf120", "\xf0626", "\xf059f", "\xf075a"]
+namedWorkSpacesKeys = [xK_F1..xK_F4]
+myNumberedWorkspaces = map show [1..9]
+numberedWorkspacesKeys = [xK_1..xK_9]
+myWorkspaces = myNamedWorkspaces ++ myNumberedWorkspaces
+myClickableWorkspaces = map xmobarAction myWorkspaces
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -159,7 +123,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-shift-[1..9], Move client to workspace N
     --
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+        | (i, k) <- zip (XMonad.workspaces conf) $ namedWorkSpacesKeys ++ numberedWorkspacesKeys
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
 
@@ -205,10 +169,9 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- smartBorderEnable = True
 
+-- allSpaces = spacingRaw True (Border edgeSize edgeSize edgeSize edgeSize) True (Border edgeSize edgeSize edgeSize edgeSize) False
 edgeSize :: Int
 edgeSize = 5
-
--- allSpaces = spacingRaw True (Border edgeSize edgeSize edgeSize edgeSize) True (Border edgeSize edgeSize edgeSize edgeSize) False
 
 myLayout = avoidStruts $ fullscreenFull $ smartSpacingWithEdge edgeSize $ (tiled ||| Mirror tiled ||| Full)
   where
@@ -224,21 +187,7 @@ myLayout = avoidStruts $ fullscreenFull $ smartSpacingWithEdge edgeSize $ (tiled
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
 
-------------------------------------------------------------------------
 -- Window rules:
-
--- Execute arbitrary actions and WindowSet manipulations when managing
--- a new window. You can use this to, for example, always float a
--- particular program, or have a client always appear on a particular
--- workspace.
---
--- To find the property name associated with a program, use
--- > xprop | grep WM_CLASS
--- and click on the client you're interested in.
---
--- To match on the WM_NAME, you can use 'title' in the same way that
--- 'className' and 'resource' are used below.
---
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
@@ -246,22 +195,8 @@ myManageHook = composeAll
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
-------------------------------------------------------------------------
--- Status bars and logging
 
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
-
-
-------------------------------------------------------------------------
 -- Startup hook
-
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
---
--- By default, do nothing.
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
   spawnOnce "picom &"
@@ -270,7 +205,6 @@ myStartupHook = do
           \--transparent true --tint 0x101010 --height 18"
 
 -- moreKeys
-
 moreKeys = [
       ( (0, xF86XK_AudioRaiseVolume)  , spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
     , ( (0, xF86XK_AudioLowerVolume)  , spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%"      )
@@ -285,33 +219,31 @@ moreKeys = [
 --
 myXmobarPP = def {
   -- workspace highlighting
-  ppCurrent = xmobarColor "#ffffff" "#df00df" . wrap " " " " ,
-  ppVisible = xmobarColor "#008080" "" ,
-  ppHidden =  xmobarColor "#2F4F4F" "" ,
+  -- ppCurrent = xmobarColor "#ffffff" "#df00df" . wrap " " " " ,
+  ppCurrent = xmobarBorder "Full" "#ff00ff" 2 . xmobarColor "#ffffff" "" . wrap " " " ",
+  ppVisible = xmobarBorder "Full" "#008800" 1 . xmobarColor "#008080" "",
+  ppHidden =  xmobarBorder "Full" "#2F4F4F" 1 . xmobarColor "#2F4F4F" "" . wrap " " " ",
   ppUrgent =  xmobarColor "#FF0000" "" . wrap "*" "",
   -- other stuff
   ppTitleSanitize   = xmobarStrip ,
   ppTitle =   \t -> xmobarColor "#00dede" "" $ shorten 45 t ,
   ppSep =     "<fc=#666666>    </fc>" ,
   ppOrder =   \(ws:l:t:ex) -> [ws,t] -- ,
-  -- ppExtras          = [logTitles formatFocused formatUnfocused]
 }
-  -- where
-  --   formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
-  --   formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
 
+mySB = statusBarProp "xmobar ~/.config/xmobar/xmobarrc" $ clickablePP myXmobarPP
 main = do
   xmonad
   . ewmhFullscreen
   . ewmh
-  . withEasySB (statusBarProp "xmobar ~/.config/xmobar/xmobarrc" (pure myXmobarPP)) toggleStrutsKey 
+  . withEasySB mySB toggleStrutsKey
   $ def {
       -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
+        terminal           = "alacritty",
+        focusFollowsMouse  = True,
+        clickJustFocuses   = True,
+        borderWidth        = 1,
+        modMask            = mod4Mask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,

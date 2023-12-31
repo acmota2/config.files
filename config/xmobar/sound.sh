@@ -10,7 +10,7 @@ if [[ $verifyMuted == 'MUTED' ]]; then
     print '<fc=#ff0000>   NOPE   </fc>'
 else
     case $(expr $vol / 10) in
-        0) print "<fn=2>${1}</fn>" $vol% "<fc=$invalid>▒▒▒▒▒▒▒▒▒▒</fc>" ;;
+        0) print "<fn=2>${1}</fn>" 0$vol% "<fc=$invalid>▒▒▒▒▒▒▒▒▒▒</fc>" ;;
         1) print "<fn=2>${1}</fn>" $vol% "<fc=$valid>█<fc=$invalid>▒▒▒▒▒▒▒▒▒</fc></fc>" ;;
         2) print "<fn=2>${1}</fn>" $vol% "<fc=$valid>██</fc><fc=$invalid>▒▒▒▒▒▒▒▒</fc>" ;;
         3) print "<fn=2>${1}</fn>" $vol% "<fc=$valid>███</fc><fc=$invalid>▒▒▒▒▒▒▒</fc>" ;;
