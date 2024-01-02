@@ -190,6 +190,7 @@ myLayout = avoidStruts $ fullscreenFull $ smartSpacingWithEdge edgeSize $ (tiled
 -- Window rules:
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
+    , className =? "whatsdesk"      --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "atlauncher"     --> doFloat
     , resource  =? "desktop_window" --> doIgnore
