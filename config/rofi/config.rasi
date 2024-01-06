@@ -1,7 +1,1 @@
-@theme "/usr/share/rofi/themes/lb.rasi"
-
-window {
-	height: 20%;
-	width: 20%;
-	orientation: horizontal;
-}
+../../../../.config/rofi/config.rasi
