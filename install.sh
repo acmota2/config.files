@@ -1,6 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
-cp -r ./config/* $HOME/.config/*
-cp ./.xinitrc $HOME/*
-cp ./.zshrc $HOME/*
-cp ./.zprofile $HOME/*
+cp -rf * ~/*
+cp -rf ./config/* ~/.config/*
