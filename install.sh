@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cp -rf * ~/*
-cp -rf ./config/* ~/.config/*
+ln -rs ./config/*/* ~/.config/*/*
+ln -rs ./.{x,z}* ~/*
