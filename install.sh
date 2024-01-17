@@ -1,4 +1,9 @@
 #!/bin/sh
 
-ln -rs ./config/*/* ~/.config/*/*
+for f in $(ls ./config)
+do
+	mkdir -p $f
+	ln -rs ./config/$f/* ~/.config/$f/*
+done
+
 ln -rs ./.{x,z}* ~/*
