@@ -80,7 +80,7 @@ Config {
                              ] 50
 
         -- time and date indicator 
-        , Run Date           "<fc=#ABABAB>%Y-<fc=#dF00dF>%b</fc>-<fc=#dF00dF>%d</fc> • <fc=#dF00dF>%a</fc> %H:%M</fc>" "date" 10
+        , Run Date           "<fc=#ABABAB><fc=#dF00dF>%b</fc>-<fc=#dF00dF>%d</fc> • <fc=#dF00dF>%a</fc> %H:%M</fc>" "date" 10
 
         -- keyboard layout indicator
         , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
@@ -106,6 +106,6 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %UnsafeXMonadLog% }<fc=#df00df>%cat%</fc> <fc=#00dfdf>%connection%</fc>{ %dynnetwork% | %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
+   , template = " %UnsafeXMonadLog% }<fc=#df00df>%cat%</fc> <fc=#00dfdf>%connection%</fc>{%cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
    }
 

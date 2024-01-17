@@ -8,15 +8,15 @@ if [[ $? != 0 ]] && [[ $cable == 0 ]]; then
     return 0
 fi
 
-strength=$(nmcli dev wifi list | awk '/\*/{if (NR!=1) {print $6}}')
+strength=$(nmcli dev wifi list | awk '/\*/{if (NR!=1) {print $10}}')
 if [[ $cable == 1 ]]; then
-    print $(hostname -i | awk '{ print $1 }')
+    print $(ip -json route get 8.8.8.8 | jq -r '.[].prefsrc')
 else
     case $(expr $strength / 25) in
-        0) $icon="<fn=2>${3}</fn>" ;;
-        1) $icon="<fn=2>${4}</fn>" ;;
-        2) $icon="<fn=2>${5}</fn>" ;;
-        *) $icon="<fn=2>${6}</fn>" ;;
+        0) icon="<fn=2>${3}</fn>" ;;
+        1) icon="<fn=2>${4}</fn>" ;;
+        2) icon="<fn=2>${5}</fn>" ;;
+        *) icon="<fn=2>${6}</fn>" ;;
     esac
 
     print "<fc=#ffffff>$icon</fc> $ssid"
