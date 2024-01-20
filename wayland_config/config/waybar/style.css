@@ -16,6 +16,12 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
+#window {
+    font-weight: bold;
+    color: #00FFFF;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
 /*
 window#waybar.empty {
     background-color: transparent;
@@ -70,7 +76,8 @@ button:hover {
 }
 
 #workspaces button.visible {
-    background: rgba(0, 170, 170, 30);
+    background: rgba(170, 0, 170, 30);
+    font-weight: bold;
 }
 
 #mode {
