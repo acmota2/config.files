@@ -1,0 +1,8 @@
+@theme "./themes/lb.rasi"
+
+window {
+	height: 20%;
+	width: 20%;
+	orientation: horizontal;
+	dpi: 72;
+}
