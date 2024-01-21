@@ -11,7 +11,7 @@ bindkey -e
 zstyle :compinstall filename '$HOME/.zshrc'
 # End of lines added by compinstall
 
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 
 # Format the vcs_info_msg_0_ variable
@@ -59,4 +59,3 @@ mkcd() {
 }
 
 [ -f "/home/acmota2/.ghcup/env" ] && source "/home/acmota2/.ghcup/env" # ghcup-env%
-
