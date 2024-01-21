@@ -42,9 +42,6 @@ bindkey '^[[Z' reverse-menu-complete
 unsetopt BEEP
 setopt auto_cd
 
-zmodload  zsh/complist
-zmodload zsh/mathfunc
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

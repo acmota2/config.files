@@ -1,4 +1,4 @@
-@theme "/usr/share/rofi/themes/lb.rasi"
+@theme "./themes/lb.rasi"
 
 window {
 	height: 20%;
