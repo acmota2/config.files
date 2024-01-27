@@ -2,14 +2,18 @@
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
+    border: none;
+    min-height: 10px;
 }
 
 window#waybar {
-    background-color: rgba(51, 51, 51, 0.5);
+    /* background-color: rgba(51, 51, 51, 0.75); */
     /*border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+    background-color: transparent;
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+    border-radius: 5px;
 }
 
 window#waybar.hidden {
@@ -20,6 +24,11 @@ window#waybar.hidden {
     font-weight: bold;
     color: #00FFFF;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    padding: 5px 5px 0px 5px;
 }
 
 /*
@@ -36,7 +45,7 @@ window#waybar.termite {
 }
 
 window#waybar.chromium {
-    background-color: #000000;
+    background-color: transparent;
     border: none;
 }
 
@@ -45,7 +54,7 @@ button {
     box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
-    border-radius: 0;
+    border-radius: 2;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -56,9 +65,10 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 5px;
     background-color: transparent;
     color: #ffffff;
+    border-radius: 5px;
 }
 
 #workspaces button:hover {
@@ -76,7 +86,7 @@ button:hover {
 }
 
 #workspaces button.visible {
-    background: rgba(170, 0, 170, 30);
+    background: rgba(170, 0, 170, 0.85);
     font-weight: bold;
 }
 
@@ -101,13 +111,22 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #mpd {
-    padding: 0 10px;
+    padding: 0 15px;
     color: #ffffff;
+    background: rgba(51, 51, 51, 0.75);
 }
 
-#window,
 #workspaces {
+    border-radius: 5px;
+    background: rgba(51,51,51,0.75);
+}
+
+#window {
     margin: 0 4px;
+}
+
+.modules-left > widget:first-child {
+    border-radius: 0 5px 5px 0;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -115,23 +134,30 @@ button:hover {
     margin-left: 0;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+.modules-left > widget:first-child > #clock {
+    margin-left: 0;
 }
 
+/* If workspaces is the rightmost module, omit right margin */
+/* .modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}*/
+
 #clock {
-    background-color: #00aaaa;
+    /* background-color: #00aaaa; */
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 0 5px 5px 0;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    /* background-color: #ffffff; */
+    color: #ffffff;
 }
 
 #battery.charging, #battery.plugged {
     color: #ffffff;
-    background-color: #26A65B;
+    /* background-color: #26A65B; */
 }
 
 @keyframes blink {
@@ -142,7 +168,7 @@ button:hover {
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
+    /* background-color: #f53c3c; */
     color: #ffffff;
     animation-name: blink;
     animation-duration: 0.5s;
@@ -156,12 +182,13 @@ label:focus {
 }
 
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
+    /* background-color: #2ecc71; */
+    color: #ffffff;
 }
 
 #memory {
-    background-color: rgba(155, 89, 182, 55);
+    /* background-color: rgba(155, 89, 182, 55); */
+    color: #ffffff;
 }
 
 #disk {
@@ -169,26 +196,28 @@ label:focus {
 }
 
 #backlight {
-    background-color: #90b1b1;
-    color: black;
+    /* background-color: #90b1b1; */
+    color: white;
 }
 
 #network {
-    background-color: #2980b9;
+    /* background-color: #2980b9; */
+    color: #ffffff;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    /* background-color: #f53c3c; */
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    /* background-color: #f1c40f; */
+    color: #ffffff;
+    border-radius: 5px 0 0 5px;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    /* background-color: #90b1b1; */
+    color: #aaaaaa;
 }
 
 #wireplumber {
@@ -215,7 +244,8 @@ label:focus {
 }
 
 #temperature {
-    background-color: #f0932b;
+    /* background-color: #f0932b; */
+    color: #ffffff;
 }
 
 #temperature.critical {
