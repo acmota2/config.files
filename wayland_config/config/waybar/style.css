@@ -64,6 +64,7 @@ button:hover {
     /*outline: 1px solid #ffffff;*/
 }
 
+#custom-sys-settings button,
 #workspaces button {
     padding: 5px;
     background-color: transparent;
@@ -71,10 +72,12 @@ button:hover {
     border-radius: 5px;
 }
 
+#custom-sys-settings button:hover,
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
+#custom-sys-settings button:focused,
 #workspaces button.focused {
     background-color: #64727D;
     box-shadow: inset 0 -3px #ffffff;
@@ -110,10 +113,18 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#mpd {
+#mpd,
+#custom-sys-settings {
     padding: 0 15px;
     color: #ffffff;
     background: rgba(51, 51, 51, 0.75);
+}
+
+#custom-sys-settings {
+    font-weight: bold;
+    margin-right: 5px;
+    padding: 0 2px 0 1px;
+    border-radius: 5px;
 }
 
 #workspaces {
@@ -125,7 +136,7 @@ button:hover {
     margin: 0 4px;
 }
 
-.modules-left > widget:first-child {
+.modules-left > widget:first-child > #tray {
     border-radius: 0 5px 5px 0;
 }
 
@@ -145,19 +156,24 @@ button:hover {
 
 #clock {
     /* background-color: #00aaaa; */
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 0 5px 5px 0;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 #battery {
     /* background-color: #ffffff; */
     color: #ffffff;
+    border-radius: 0 5px 5px 0;
 }
 
 #battery.charging, #battery.plugged {
     color: #ffffff;
     /* background-color: #26A65B; */
+}
+
+#battery + #tray.visible {
+    border-radius: 0;
 }
 
 @keyframes blink {
@@ -253,7 +269,9 @@ label:focus {
 }
 
 #tray {
-    background-color: #2980b9;
+    /* background-color: #2980b9; */
+    border-radius: 5px;
+    margin-left: 5px;
 }
 
 #tray > .passive {
