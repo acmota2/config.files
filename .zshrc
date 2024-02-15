@@ -59,3 +59,5 @@ mkcd() {
 }
 
 [ -f "/home/acmota2/.ghcup/env" ] && source "/home/acmota2/.ghcup/env" # ghcup-env%
+
+eval "$(zoxide init --cmd cd zsh)"
