@@ -188,7 +188,7 @@
         "exec": "fildem"
     },
     "custom/sys-settings": {
-        "on-click": "kitty -e ~/.config/waybar/sys.sh",
+        "on-click": "foot -e ~/.config/waybar/sys.sh",
         "format": " 󰣇 "
     }
 }
