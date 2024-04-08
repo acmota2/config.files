@@ -10,7 +10,7 @@ fi
 
 strength=$(nmcli dev wifi list | awk '/\*/{if (NR!=1) {print $6}}')
 if [[ $cable == 1 ]]; then
-    print $(hostname -i | awk '{ print $1 }')
+    print $(ip -json route get 8.8.8.8 | jq -r '.[].prefsrc')
 else
     case $(expr $strength / 25) in
         0) $icon="<fn=2>${3}</fn>" ;;

@@ -1,3 +1,4 @@
+
 #!/bin/sh
 
 # atlauncher
@@ -18,3 +19,4 @@ xrandr --output DP-2 --mode 2560x1440 --rate 165
 setxkbmap -layout us -variant intl
 xsetroot -cursor_name left_ptr
 exec xmonad
+

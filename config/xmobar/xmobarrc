@@ -89,7 +89,7 @@ Config {
                              , ("us(intl)"   , "<fc=#00FFFF>us-int</fc>")
                              ]
         
-        , Run Com            "hostname" [] "" 36000
+        , Run Com            "cat" ["/etc/hostname"] "" 36000
         , Run Com            "zsh" ["/home/acmota2/.config/xmobar/wifi.sh"] "wifi" 36000
         
         -- , Run Volume         "default" "Master" [ "-t", "<fn=1>\xf057e</fn> <volume>%<status>"
@@ -106,6 +106,6 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %UnsafeXMonadLog% }<fc=#df00df>%hostname%</fc> <fc=#00dfdf>%connection%</fc>{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
+   , template = " %UnsafeXMonadLog% }<fc=#df00df>%cat%</fc> <fc=#00dfdf>%connection%</fc>{ %dynnetwork% ❘ %cpu% %multicoretemp% ❘ %memory% ❘ %bettervol% ❘ %date% %_XMONAD_TRAYPAD%"
    }
 
