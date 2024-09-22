@@ -25,7 +25,7 @@ confirm "Do you wish to proceed?" && sudo nvim /etc/pacman.conf
 # JS
 confirm "Install nvm?" && aura nvm
 
-confirm "Install main programs?" && sudo pacman -S tmux foot wl-clipboard cliphist wofi mako hyprpaper pavucontrol pipewire pipewire-jack pipewire-alsa pipewire-pulse pipewire-docs pipewire-roc pipewire-session-manager man rust go steam mako
+confirm "Install main programs?" && sudo pacman -S tmux foot wl-clipboard cliphist wofi mako hyprpaper pavucontrol pipewire pipewire-jack pipewire-alsa pipewire-pulse pipewire-docs pipewire-roc pipewire-session-manager man rust go steam mako zoxide
 
 # nvim
 confirm "Install packer?" && git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
