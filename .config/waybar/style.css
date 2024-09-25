@@ -205,6 +205,11 @@ label:focus {
 #memory {
     /* background-color: rgba(155, 89, 182, 55); */
     color: #ffffff;
+    border-radius: 0 5px 5px 0;
+}
+
+#memory + #tray.visible {
+    border-radius: 0;
 }
 
 #disk {
