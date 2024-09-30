@@ -9,7 +9,7 @@
     "margin-top": 4,
     "margin-right": 10,
     "margin-left": 10,
-    "modules-left": ["custom/sys-settings", "hyprland/workspaces"],
+    "modules-left": ["hyprland/workspaces"],
     // "modules-center": ["hyprland/window"],
     "modules-center": ["custom/fildem", "clock"],
     "modules-right": ["pulseaudio", "network", "cpu", "temperature", "memory", "backlight", "battery", "battery#bat2", "tray"],
