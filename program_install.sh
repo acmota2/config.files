@@ -23,7 +23,7 @@ printf "This next step will open nvim to edit /etc/pacman.conf\n"
 confirm "Do you wish to proceed?" && sudo nvim /etc/pacman.conf
 
 # JS
-confirm "Install nvm?" && aura nvm
+confirm "Install nvm?" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
 confirm "Install main programs?" && sudo pacman -S tmux foot wl-clipboard cliphist wofi mako hyprpaper pavucontrol pipewire pipewire-jack pipewire-alsa pipewire-pulse pipewire-docs pipewire-roc pipewire-session-manager man rust go steam mako zoxide
 
