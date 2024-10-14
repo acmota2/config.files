@@ -1,2 +1,2 @@
-require("lua_files")
-print("Let's code!")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
