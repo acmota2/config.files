@@ -5,6 +5,7 @@ return {
       "bash",
       "c",
       "html",
+      "hyprlang",
       "javascript",
       "json",
       "lua",
