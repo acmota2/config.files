@@ -210,7 +210,6 @@ label:focus {
 #memory {
   /* background-color: rgba(155, 89, 182, 55); */
   color: #ffffff;
-  border-radius: 0 5px 5px 0;
 }
 
 #disk {
