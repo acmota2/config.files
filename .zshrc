@@ -57,12 +57,22 @@ gitc() {
 mkcd() {
   mkdir $1 ; cd $1
 }
+++() {
+  foot -e $@ &
+}
 
 [ -f "/home/acmota2/.ghcup/env" ] && source "/home/acmota2/.ghcup/env" # ghcup-env%
 
 eval "$(zoxide init --cmd cd zsh)"
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# pnpm
+export PNPM_HOME="/home/acmota2/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+eval "$(starship init zsh)"
+
