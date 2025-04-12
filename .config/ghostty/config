@@ -1,3 +1,8 @@
 font-family = "JetBrains Mono"
+font-feature = -calt
+font-feature = -dlig
+font-feature = -liga
 font-size = 13
+adjust-cell-width = -10%
 background = #05000f
+window-colorspace = display-p3
