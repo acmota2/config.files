@@ -1,7 +1,7 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-family: FontAwesome, "JetBrainsMono", sans-serif;
+  font-size: 14px;
   border: none;
   min-height: 10px;
 }
@@ -13,7 +13,7 @@ window#waybar {
   color: #ffffff;
   transition-property: background-color;
   transition-duration: 0.5s;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 5px;
 }
 
 window#waybar.hidden {
@@ -234,7 +234,7 @@ label:focus {
 #pulseaudio {
   /* background-color: #f1c40f; */
   color: #ffffff;
-  border-radius: 5px 0 0 5px;
+  min-width: 3em;
 }
 
 #pulseaudio.muted {
@@ -316,11 +316,11 @@ label:focus {
 }
 
 #language {
-  background: #00b093;
+  background: rgba(0, 176, 147, 0.7);
   color: #740864;
   padding: 0 5px;
-  margin: 0 5px;
   min-width: 16px;
+  border-radius: 5px 0 0 5px;
 }
 
 #keyboard-state {

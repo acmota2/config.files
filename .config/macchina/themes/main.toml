@@ -1,0 +1,6 @@
+key_color = "blue"
+separator = "○"
+
+[custom_ascii]
+color = "#ff00aa"
+path="~/config.files/.config/macchina/themes/dragon.txt"
