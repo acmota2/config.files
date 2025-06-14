@@ -15,9 +15,10 @@
     "modules-right": ["hyprland/language", "pulseaudio", "network", "cpu", "temperature", "memory", "backlight", "battery", "battery#bat2", "tray"],
     // Modules configuration
     "hyprland/language": {
-        "format-": "US (intl)",
-        "format-us": "US",
-        "format": "{}"
+        "format-en": "US",
+        "format-en-intl": "US (intl)",
+        "format": "{}",
+        "on-click": "hyprctl switchxkblayout current next"
     },
     "hyprland/workspaces": {
         "disable-scroll": true,
